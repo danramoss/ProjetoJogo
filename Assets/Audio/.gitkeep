@@ -1,0 +1,8 @@
+# Pasta reservada para os efeitos sonoros (.wav).
+# O AudioManager ja procura por estes arquivos (se nao existirem, ignora):
+#   som_coleta.wav     -> ao coletar fruta normal
+#   som_dourada.wav    -> ao coletar fruta dourada
+#   som_congelante.wav -> ao coletar fruta congelante
+#   som_podre.wav      -> ao coletar fruta podre
+#   som_gameover.wav   -> no fim de jogo
+# Basta colocar os arquivos aqui com estes nomes para os sons funcionarem.

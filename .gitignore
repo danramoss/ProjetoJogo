@@ -1,0 +1,14 @@
+# Godot 4+ — pasta de cache/importacao (regenerada ao abrir o projeto)
+.godot/
+
+# Arquivos de exportacao gerados
+export.cfg
+export_presets.cfg
+
+# Logs e crashes
+mono_crash.*.json
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
