@@ -160,10 +160,10 @@ MainMenu  ──(Jogar)──►  Game  ──► frutas caem ──► jogador 
 ### Pontuação e Dificuldade
 | Fruta | Efeito |  | Nível | Pontuação | Velocidade |
 |-------|--------|--|-------|-----------|-----------|
-| Maçã | +10 |  | 1 | 0–99 | 200 |
-| Banana | +15 |  | 2 | 100–299 | 300 |
-| Laranja | +20 |  | 3 | 300–499 | 400 |
-| Morango | +30 |  | 4 | 500+ | 500 |
+| Maçã | +10 |  | 1 | 0–99 | 400 |
+| Banana | +15 |  | 2 | 100–299 | 600 |
+| Laranja | +20 |  | 3 | 300–499 | 800 |
+| Morango | +30 |  | 4 | 500+ | 1000 |
 | Dourada | +100 |  | | | |
 | Congelante | +5 segundos |  | | | |
 | Podre | -100 (nunca fica negativo) |  | | | |

@@ -44,11 +44,11 @@ func _ready() -> void:
 
 ## Chamado quando uma fruta toca a cesta. Aplica o efeito conforme o tipo.
 func _on_fruit_caught(fruit: Fruit) -> void:
-	# Trava de seguranca: se esta fruta ja foi coletada, ignora. Isso evita
-	# contar pontos em dobro caso a colisao dispare mais de uma vez.
-	if fruit.collected:
+	# Tenta coletar UMA UNICA VEZ. Se esta fruta ja foi coletada (a colisao
+	# pode disparar mais de uma vez), try_catch() retorna false e saimos —
+	# garantindo que o valor seja contado apenas uma vez.
+	if not fruit.try_catch():
 		return
-	fruit.collected = true
 
 	match fruit.fruit_type:
 		GameConfig.FruitType.GOLDEN:

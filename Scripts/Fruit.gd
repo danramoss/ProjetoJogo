@@ -47,15 +47,24 @@ func _process(delta: float) -> void:
 		queue_free()
 
 
-## Chamado pelo GameManager logo antes de remover a fruta:
-## faz uma animacao rapida (cresce e some) para dar feedback visual.
-## Isto anima a IMAGEM (Sprite2D), nao desenha nada.
-func play_collect_animation() -> void:
-	# Desliga a colisao para nao coletar duas vezes.
+## Tenta coletar a fruta UMA UNICA VEZ.
+## Retorna true apenas na primeira chamada; nas seguintes retorna false.
+## Tambem desliga a colisao na hora, para a fruta nao ser detectada de novo.
+func try_catch() -> bool:
+	if collected:
+		return false
+	collected = true
 	# Usamos set_deferred porque nao se pode alterar a colisao durante o
 	# processamento da fisica (quando este metodo e chamado).
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
+	return true
+
+
+## Chamado pelo GameManager logo antes de remover a fruta:
+## faz uma animacao rapida (cresce e some) para dar feedback visual.
+## Isto anima a IMAGEM (Sprite2D), nao desenha nada.
+func play_collect_animation() -> void:
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(self, "scale", Vector2(1.6, 1.6), 0.15)

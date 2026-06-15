@@ -59,10 +59,10 @@ const SPAWN_INTERVAL: float = 1.0
 # DIFICULDADE PROGRESSIVA
 # A velocidade de queda aumenta conforme a pontuacao do jogador.
 # ---------------------------------------------------------------------------
-const SPEED_LEVEL_1: float = 200.0  # score 0   a 99
-const SPEED_LEVEL_2: float = 300.0  # score 100 a 299
-const SPEED_LEVEL_3: float = 400.0  # score 300 a 499
-const SPEED_LEVEL_4: float = 500.0  # score 500 ou mais
+const SPEED_LEVEL_1: float = 400.0   # score 0   a 99
+const SPEED_LEVEL_2: float = 600.0   # score 100 a 299
+const SPEED_LEVEL_3: float = 800.0   # score 300 a 499
+const SPEED_LEVEL_4: float = 1000.0  # score 500 ou mais
 
 
 ## Retorna a velocidade de queda atual de acordo com a pontuacao.
