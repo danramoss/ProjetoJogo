@@ -9,6 +9,11 @@ export_presets.cfg
 mono_crash.*.json
 *.log
 
+# Artefatos de compilacao do gerador de audio em C (tools/gen_audio.c)
+# O codigo-fonte .c e os .wav gerados SAO versionados; o executavel nao.
+*.exe
+*.obj
+
 # Sistema operacional
 .DS_Store
 Thumbs.db

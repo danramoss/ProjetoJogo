@@ -55,11 +55,17 @@ ProjetoJogo/
 │   │   ├── apple.svg  banana.svg  orange.svg  strawberry.svg
 │   │   ├── golden.svg  freeze.svg  rotten.svg
 │   │   └── basket.svg
-│   ├── Audio/             # (vazio) reservado para os .wav
+│   ├── Audio/             # Sons (.wav): efeitos + musica de fundo
+│   │   ├── som_coleta.wav  som_dourada.wav  som_congelante.wav
+│   │   ├── som_podre.wav   som_gameover.wav
+│   │   └── musica_fundo.wav
 │   └── UI/                # (vazio) reservado para recursos de interface
 │
-└── Data/
-    └── savegame.json      # Arquivo do recorde { "highscore": 0 }
+├── Data/
+│   └── savegame.json      # Arquivo do recorde { "highscore": 0 }
+│
+└── tools/
+    └── gen_audio.c        # Gerador dos sons em C (sintetiza os .wav)
 ```
 
 ---
@@ -104,8 +110,10 @@ ProjetoJogo/
   a velocidade e o nível de dificuldade a partir da pontuação.
 - **SaveManager.gd** — Lê e grava o recorde no `Data/savegame.json`. Mantém
   também a pontuação da última partida para a tela de Game Over.
-- **AudioManager.gd** — Toca os efeitos sonoros. Se o arquivo `.wav` não existir,
-  ignora silenciosamente (sistema pronto para receber os sons).
+- **AudioManager.gd** — Toca os efeitos sonoros e a **música de fundo** (em loop
+  contínuo, já que é um Autoload e persiste entre as cenas). Se algum `.wav` não
+  existir, ignora silenciosamente. Os arquivos de som são gerados pelo programa em
+  C `tools/gen_audio.c` (síntese de ondas — sem dependências externas).
 - **SceneTransition.gd** — Faz um *fade* preto ao trocar de cena.
 
 ### Scripts de jogo
@@ -178,16 +186,25 @@ MainMenu  ──(Jogar)──►  Game  ──► frutas caem ──► jogador 
 > troque a textura do `Sprite2D` direto no editor. Nenhuma mudança de código é
 > necessária.
 >
-> 💡 **Sons (opcional):** coloque arquivos `.wav` em `Assets/Audio/` com os nomes
-> `som_coleta`, `som_dourada`, `som_congelante`, `som_podre`, `som_gameover` para
-> ativar os efeitos sonoros — não é preciso mexer no código.
+> 💡 **Som:** o jogo já vem com efeitos sonoros e música de fundo (arquivos `.wav`
+> em `Assets/Audio/`). Eles são gerados pelo programa em C `tools/gen_audio.c`. Para
+> recriá-los/alterá-los, edite o `.c`, compile e rode (ver abaixo). Para usar seus
+> próprios sons, basta substituir os `.wav` por outros com os mesmos nomes.
+>
+> Para regerar os sons (opcional), com o compilador C da sua máquina:
+> ```
+> # exemplo com MSVC (Developer Prompt) ou gcc:
+> cl tools\gen_audio.c           # ou:  gcc tools/gen_audio.c -o gen_audio -lm
+> gen_audio Assets/Audio/
+> ```
 
 ---
 
 ## 7. Possíveis Melhorias Futuras
 
 - Trocar as imagens SVG por **sprites desenhados/animados** (PNG, spritesheets).
-- Adicionar **música de fundo** e os efeitos sonoros.
+- Trocar os sons sintetizados por **trilha e efeitos profissionais** e adicionar
+  controle de **volume** nas configurações.
 - Criar um sistema de **vidas** ou **combos** (multiplicador de pontos).
 - Adicionar **partículas** ao coletar frutas.
 - Incluir um **menu de pausa** (tecla ESC).

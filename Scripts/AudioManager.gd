@@ -18,13 +18,47 @@ const SOUNDS: Dictionary = {
 	"gameover":   "res://Assets/Audio/som_gameover.wav",
 }
 
-# Player reutilizado para tocar os sons.
+# Caminho da musica de fundo (toca em loop continuo durante todo o jogo).
+const MUSIC_PATH: String = "res://Assets/Audio/musica_fundo.wav"
+
+# Volume da musica de fundo, em decibeis (negativo = mais baixo que os efeitos).
+const MUSIC_VOLUME_DB: float = -9.0
+
+# Player reutilizado para tocar os efeitos sonoros.
 var _player: AudioStreamPlayer
+
+# Player exclusivo para a musica de fundo.
+var _music_player: AudioStreamPlayer
 
 
 func _ready() -> void:
 	_player = AudioStreamPlayer.new()
 	add_child(_player)
+
+	_music_player = AudioStreamPlayer.new()
+	_music_player.volume_db = MUSIC_VOLUME_DB
+	add_child(_music_player)
+
+	# Como o AudioManager e um Autoload, a musica continua tocando mesmo
+	# ao trocar de cena (menu -> jogo -> game over).
+	_start_music()
+
+
+## Inicia a musica de fundo em loop. Se o arquivo nao existir, nao faz nada.
+func _start_music() -> void:
+	if not ResourceLoader.exists(MUSIC_PATH):
+		return
+
+	var stream: AudioStream = load(MUSIC_PATH)
+	# Configura o loop do arquivo .wav para repetir sem parar.
+	if stream is AudioStreamWAV:
+		var wav := stream as AudioStreamWAV
+		wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		wav.loop_begin = 0
+		wav.loop_end = int(wav.get_length() * wav.mix_rate)
+
+	_music_player.stream = stream
+	_music_player.play()
 
 
 ## Toca o som correspondente ao nome (ex: "coleta", "podre").
